@@ -1,1 +1,8 @@
 *.class
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Optional: Ignore Mac system files
+.DS_Store
