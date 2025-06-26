@@ -22,7 +22,7 @@ public class BoundedBuffer {
         notifyAll(); // Notify waiting consumers
     }
 
-    public synchronized int take() throws InterruptedException {
+    public synchronized int take() throws InterruptedException{
         while (queue.isEmpty()) {
             wait(); // Wait until item is available
         }
