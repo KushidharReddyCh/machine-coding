@@ -14,11 +14,16 @@ interface Subject{
     public void registerObserver(Observer o);
     public void removeObserver(Observer o);
     public void notifyObservers();
+
+
+    float getTemp();
+    float getHumidity();
+    float getPressure();
 }
 
 interface Observer{
     // pass state instead of all the params
-    public void update(float temp, float humidity, float pressure);
+    public void update();
 }
 
 interface DisplayElement{
@@ -49,7 +54,7 @@ class WeatherData implements Subject{
     public void notifyObservers(){
         for(Observer observer : observers){ // is explicit type casting needed? learn about java type casting here...
 //            Observer observer = (Observer) o;
-            observer.update(this.temp, this.humidity, this.pressure);
+            observer.update();
         }
     }
     public void measurementsChanged(){
@@ -60,6 +65,15 @@ class WeatherData implements Subject{
         this.humidity = humidity;
         this.pressure = pressure;
         measurementsChanged();
+    }
+    public float getTemp(){
+        return this.temp;
+    }
+    public float getHumidity(){
+        return this.humidity;
+    }
+    public float getPressure(){
+        return this.pressure;
     }
 }
 
@@ -75,9 +89,9 @@ class CurrentConditionsDisplay implements  Observer, DisplayElement{
     }
 
     @Override
-    public void update(float temp, float humidity, float pressure){
-        this.temp = temp;
-        this.humidity = humidity;
+    public void update(){
+        this.temp = weatherData.getTemp();
+        this.humidity = weatherData.getHumidity();
         display();
     }
 
