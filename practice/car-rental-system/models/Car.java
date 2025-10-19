@@ -1,19 +1,53 @@
+import java.util.HashSet;
 import java.util.List;
 import enums.CarStatus;
 
 public class Car {
-    int carID;
+    long carID;
     String modelNumber;
     String licenseNumber;
     double pricePerDayInRupees;
     CarStatus carStatus;
-    List<Integer> availableDates; // note: assuming for the time being dates are repensented as numbers 1 --> jan 1st, 32 --> feb1
-    List<Integer> bookedDates;
+    HashSet<Integer> availableDates; // note: assuming for the time being dates are repensented as numbers 1 --> jan 1st, 32 --> feb1
+    HashSet<Integer> bookedDates;
 
-    public Car(int carID, String modelNumber, String licenseNumber) {
+    public Car(long carID, String modelNumber, String licenseNumber) {
         this.carID = carID;
         this.modelNumber = modelNumber;
         this.licenseNumber = licenseNumber;
+    }
+
+    public boolean checkAvailability(int startDate, int endDate){
+        for(int date = startDate; date <= endDate; date++){
+            if(!availableDates.contains(date)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean unblockDates(int startDate, int endDate){
+        for(int date = startDate; date <= endDate; date++){
+            if(bookedDates.contains(date)){
+                bookedDates.remove(date);
+                availableDates.add(date);
+            }else{
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean blockDates(int startDate, int endDate){
+        for(int date = startDate; date <= endDate; date++){
+            if(availableDates.contains(date)){
+                availableDates.remove(date);
+                bookedDates.add(date);
+            }else{
+                return false;
+            }
+        }
+        return true;
     }
 
     public double getPricePerDayInRupees() {
@@ -32,19 +66,19 @@ public class Car {
         this.carStatus = carStatus;
     }
 
-    public List<Integer> getAvailableDates() {
+    public HashSet<Integer> getAvailableDates() {
         return availableDates;
     }
 
-    public void setAvailableDates(List<Integer> availableDates) {
+    public void setAvailableDates(HashSet<Integer> availableDates) {
         this.availableDates = availableDates;
     }
 
-    public List<Integer> getBookedDates() {
+    public HashSet<Integer> getBookedDates() {
         return bookedDates;
     }
 
-    public void setBookedDates(List<Integer> bookedDates) {
+    public void setBookedDates(HashSet<Integer> bookedDates) {
         this.bookedDates = bookedDates;
     }
 
@@ -64,12 +98,7 @@ public class Car {
         this.modelNumber = modelNumber;
     }
 
-    public int getCarID() {
+    public long getCarID() {
         return carID;
     }
-
-    public void setCarID(int carID) {
-        this.carID = carID;
-    }
-
 }
