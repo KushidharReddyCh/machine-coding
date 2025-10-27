@@ -1,0 +1,34 @@
+################# STEP 1 - FUNCTIONAL REQUIREMENTS #################
+
+ENTRY FLOW
+- Vehicle arrives at the gate 
+- Generate ticket and assign slot based on Vehicle type
+- Mark slot as occupied
+- Return EntryResult with success/failure status
+
+EXIT FLOW
+- User presents ticket to the exit 
+- Calculate fee based on pricing rules (minimum of flat and hourly pricing)
+- Process payment through payment gateway 
+- Release slot and Generate receipt
+- Return exitresult with success/ failure status 
+
+ADMIN CONFIGURATIONS
+- Add/Edit/Delete Floors and Slots
+- Define pricing rules based on vehicle type(both flat and hourly rates)
+- Update flat and hourly pricing for vehicle types
+- View current parking status
+
+
+-- COUNTER QUESTION VERY VERY IMP**
+// what is there is a server failure, where we may need a human to override instead of automated gates working by themselves 
+
+SOME EDGE CASES
+- PAYMENT FAILURE DURING EXIT -- retry and hold slot
+- TICKET LOST -- allow admin override
+- CLOCK SKEW  -- system time validation (time sync is imp)
+- SLOT STATE MISMATCH -- periodic reconciliation
+
+DONT THROW MANY -- IF HE SAID IMPLEMENT ALL, U WILL BE FUCKED UP
+
+################# STEP 2 - IDENTIFYING CORE ENTITIES #################
