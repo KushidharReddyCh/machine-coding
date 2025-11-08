@@ -9,13 +9,6 @@ abstract class Beverage{
     public abstract double cost();
 }
 
-abstract class CondimentDecorator extends Beverage{
-    // First, we need to be interchangeable with a Beverage, so we extend the Beverage class.
-    Beverage beverage;  // Here's the Beverage that each Decorator will be wrapping. 
-    // Notice we are using the Beverage supertype to refer to the Beverage so the Decorator can wrap any beverage.
-    public abstract String getDescription();
-}
-
 class Espresso extends Beverage{
     public Espresso(){
         description = "Espresso";
